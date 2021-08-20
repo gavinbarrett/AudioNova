@@ -1,4 +1,3 @@
-
 const audioContext = new AudioContext();
 
 const container = document.getElementById("container");
@@ -16,7 +15,7 @@ let audioSource;
 let analyzer;
 
 // FIXME: read file from fs 
-
+/*
 container.addEventListener('click', () => {
 	const audio1 = document.getElementById("audio1");
 	// play audio
@@ -36,7 +35,7 @@ container.addEventListener('click', () => {
 	// create buffer to store data
 	let dataArray = new Uint8Array(bufferLength);	
 	// size with of audio bars evenly
-	const barWidth = canvas.width / bufferLength;
+	const barWidth = (canvas.width/2) / bufferLength;
 	let barHeight;
 	let x;
 
@@ -61,6 +60,7 @@ container.addEventListener('click', () => {
 
 
 });
+*/
 
 file.addEventListener("change", function() {
 	console.log(this.files);
@@ -87,10 +87,9 @@ file.addEventListener("change", function() {
 	// create buffer to store data
 	let dataArray = new Uint8Array(bufferLength);	
 	// size with of audio bars evenly
-	const barWidth = canvas.width / bufferLength;
+	const barWidth = (canvas.width/2) / bufferLength;
 	let barHeight;
 	let x;
-
 
 	function animate() {
 		x = 0;
@@ -108,12 +107,34 @@ file.addEventListener("change", function() {
 
 function animationVisualizer(bufferLength, x, barWidth, barHeight, dataArray) {
 	for (let i = 0; i < bufferLength; i++) {
+		// get current height
+		barHeight = dataArray[i];
+		
+		// choose colors
+		const red = i * barHeight/20;
+		const green = i * 4;
+		const blue = barHeight/2;
+		//ctx.fillStyle = 'white';
+		//ctx.fillRect(canvas.width/2 - x, canvas.height - barHeight - 30, barWidth, 20);
+		
+		// set colors
+		ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+		
+		//
+		ctx.fillRect(canvas.width/2 - x, canvas.height - barHeight, barWidth, barHeight);
+		
+		x += barWidth;
+	}
+	for (let i = 0; i < bufferLength; i++) {
 		barHeight = dataArray[i];
 		const red = i * barHeight/20;
 		const green = i * 4;
 		const blue = barHeight/2;
+		//ctx.fillStyle = 'white';
+		//ctx.fillRect(x, canvas.height - barHeight - 30, barWidth, 20);
 		ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
 		ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
 		x += barWidth;
 	}
+
 }
