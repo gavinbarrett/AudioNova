@@ -104,19 +104,20 @@ input[type=file]::file-selector-button {
 		display: none;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
+		width: 50%;
+		margin: 1rem;
 	}
 	#filelist {
 		display: none;
 		flex-direction: column;
 		width: 100%;
 		height: 50vh;
-		overflow: hidden;
+		overflow-x: hidden;
 		overflow-y: scroll;
 		scrollbar-width: thin;
 	}
 	#filelist > div {
-		width: 800px;
+		width: 600px;
 		overflow: hidden;
 		white-space: nowrap;
 		border-bottom: 2px dotted #476FDE;
@@ -136,7 +137,7 @@ input[type=file]::file-selector-button {
 		cursor: default;
 	}
 	#filelist p:hover {
-		animation: marquee 10s linear infinite;
+		animation: marquee 7s linear infinite;
 		cursor: default;
 	}
 	#container {
@@ -157,8 +158,12 @@ input[type=file]::file-selector-button {
 	}
 	#selector {
 		display: none;
+		width: 100%;
 		flex-direction: column;
+		font-weight: bold;
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
 		color: white;
+		margin-left: 1rem;
 	}
 	@keyframes marquee {
 		0% {
