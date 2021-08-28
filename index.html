@@ -3,15 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Audio Visualizer</title>
+<title>Audio Nova</title>
 <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
+	<div id="controller">
+		<input type="file" id="fileupload" accept="audio/*" multiple/>
+		<div id="filelist"></div>
+		<div id="selector">
+			<label><input type="radio" name="bar" checked/>Bar</label>
+			<label><input type="radio" name="radial"/>Radial</label>
+		</div>
+	</div>
 	<div id="container">
 		<canvas id="canvas1"></canvas>
 		<audio id="audio1" controls></audio>
-		<input type="file" id="fileupload" accept="audio/*"/>
 	</div>
+<script src="visualizer.js" type="module"></script>
 <script src="./index.js"></script>
 </body>
 </html>

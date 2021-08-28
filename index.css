@@ -4,13 +4,47 @@
 	box-sizing: border-box;
 }
 
+html {
+	width: 100vw;
+	height: 100vh;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+#controller {
+	width: 100vw;
+	height: 10vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #000000;
+	z-index: 1;
+	transition: height 0.35s ease-out;
+}
+
+#controller:hover {
+	height: 35vw;
+	transition: height 0.35s ease-out;
+}
+
+#filelist {
+	display: none;
+}
+
 #container {
-	position: absolute;
 	top: 0;
 	left: 0;
-	background: black;
-	width: 100%;
-	height: 100%;
+	background: rgb(32, 32, 61);
+	width: 100vw;
+	height: 90vh;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
 }
 
 #canvas1 {
@@ -25,11 +59,119 @@
 	width: 50%;
 	margin: 50px auto;
 	display: block;
+	z-index: 1;
 }
 
 #fileupload {
-	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30vw;
+}
+
+input[type=file]::file-selector-button {
+	width: 28vw;
+	height: 8vh;
+	border: 0;
+	border-radius: 30px;
+	background: #476FDE;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	top: 150px;
-	color: white;
-	z-index: 100;
+	color: #ffffff;
+	z-index: 1;
+}
+
+@media only screen and (min-width: 600px) {
+	body {
+		flex-direction: row;	
+	}
+	#controller {
+		width: 5vw;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: space-around;
+		transition: width 0.35s ease-out;
+	}
+	#controller:hover {
+		width: 25vw;
+		height: 100vh;
+		transition: width 0.35s ease-out;
+	}
+	#fileupload {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+	}
+	#filelist {
+		display: none;
+		flex-direction: column;
+		width: 100%;
+		height: 50vh;
+		overflow: hidden;
+		overflow-y: scroll;
+		scrollbar-width: thin;
+	}
+	#filelist > div {
+		width: 800px;
+		overflow: hidden;
+		white-space: nowrap;
+		border-bottom: 2px dotted #476FDE;
+		cursor: default;
+	}
+	#filelist p {
+		width: 100%;
+		height: 12vh;
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+		overflow: hidden;
+		margin-left: 1rem;
+		text-overflow: ellipsis;
+		font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		color: white;
+		cursor: default;
+	}
+	#filelist p:hover {
+		animation: marquee 10s linear infinite;
+		cursor: default;
+	}
+	#container {
+		width: 95vw;
+		height: 100vh;
+	}
+	input[type=file]::file-selector-button {
+		width: 8vw;
+		height: 6vh;
+		border: 0;
+		border-radius: 30px;
+		background: #476FDE;
+		font-weight: bold;
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+		top: 150px;
+		color: #ffffff;
+		z-index: 1;
+	}
+	#selector {
+		display: none;
+		flex-direction: column;
+		color: white;
+	}
+	@keyframes marquee {
+		0% {
+			transform: translateX(0%);
+		}
+		80% {
+			transform: translateX(-100%)
+		}
+		81% {
+			transform: translateX(100%);
+		}
+		100% {
+			transform: translateX(0%);
+		}
+	}
 }
