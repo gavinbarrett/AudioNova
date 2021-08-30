@@ -111,17 +111,23 @@ input[type=file]::file-selector-button {
 		display: none;
 		flex-direction: column;
 		width: 100%;
-		height: 50vh;
+		height: 70%;
+		top: 0;
+		bottom: 0;
 		overflow-x: hidden;
 		overflow-y: scroll;
 		scrollbar-width: thin;
 	}
 	#filelist > div {
 		width: 600px;
-		overflow: hidden;
+		height: 12vh;
 		white-space: nowrap;
 		border-bottom: 2px dotted #476FDE;
 		cursor: default;
+	}
+	#filelist > div:hover {
+		background: #476FDE;
+		transition: background-color 0.25s ease-in;
 	}
 	#filelist p {
 		width: 100%;
@@ -130,15 +136,17 @@ input[type=file]::file-selector-button {
 		align-items: center;
 		white-space: nowrap;
 		overflow: hidden;
-		margin-left: 1rem;
+		padding-left: 1rem;
 		text-overflow: ellipsis;
 		font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 		color: white;
 		cursor: default;
+		transition: background-color 0.25s ease-in;
 	}
 	#filelist p:hover {
-		animation: marquee 7s linear infinite;
 		cursor: default;
+		background: #476FDE;
+		animation: marquee 9s linear infinite;
 	}
 	#container {
 		width: 95vw;
@@ -160,10 +168,56 @@ input[type=file]::file-selector-button {
 		display: none;
 		width: 100%;
 		flex-direction: column;
-		font-weight: bold;
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
 		color: white;
 		margin-left: 1rem;
+	}
+	.checkcontainer {
+		display: block;
+		position: relative;
+		padding-left: 2rem;
+		margin-bottom: 1rem;
+		font-size: 1.5rem;
+		user-select: none;
+	}
+	.checkcontainer input {
+		position: absolute;
+		opacity: 0;
+		cursor: default;
+		height: 0;
+		width: 0;
+	}
+	.checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 25px;
+		width: 25px;
+		background-color: #eee;
+	}
+	.checkcontainer:hover input ~ .checkmark {
+		background-color: #ccc;
+	}
+
+	.checkcontainer input:checked ~ .checkmark {
+		background-color: #476FDE;
+	}
+	.checkmark::after {
+		content: "";
+		position: absolute;
+		display: none;
+	}
+	.checkcontainer input:checked ~ .checkmark::after {
+		display: block;
+	}
+	.checkcontainer .checkmark::after {
+		left: 9px;
+		top: 5px;
+		width: 5px;
+		height: 10px;
+		border: solid white;
+		border-width: 0 3px 3px 0;
+		transform: rotate(45deg);
 	}
 	@keyframes marquee {
 		0% {

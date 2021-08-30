@@ -11,8 +11,16 @@
 		<input type="file" id="fileupload" accept="audio/*" multiple/>
 		<div id="filelist"></div>
 		<div id="selector">
-			<label><input type="radio" id="bar" name="mode" checked/>Bar</label>
-			<label><input type="radio" id="radial" name="mode"/>Radial</label>
+			<label class="checkcontainer">
+				<input type="radio" id="bar" name="mode" checked/>
+				<span class="checkmark"></span>
+				Bar
+			</label>
+			<label class="checkcontainer">
+				<input type="radio" id="radial" name="mode"/>
+				<span class="checkmark"></span>
+				Radial
+			</label>
 		</div>
 	</div>
 	<div id="container">

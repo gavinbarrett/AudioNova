@@ -22,11 +22,37 @@ const runNovaEngine = () => {
 		// set canvas dimensions
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight;
+		this.colorNum = 4681694;
+		this.color = '#476FDE';
+		this.colorIndex = 4;
+		this.colorMap = [
+			0xff0000,	// red
+			0xffa500,	// orange
+			0xffff00,	// yellow
+			0x00ff00,	// green
+			0x0000ff,	// blue
+			0xa020f0,	// purple
+		];
 		// reset canvas dimensions upon resizing
 		window.onresize = () => {
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight;
 		}
+		// set keydown event for controlling colors
+		document.addEventListener('keydown', event => {
+			if (event.key == "ArrowRight") {
+				this.colorNum = (this.colorNum + 1) % 16777215;
+				this.color = computeColor();
+			} else if (event.key == "ArrowUp") {
+				this.colorIndex = mod(this.colorIndex + 1, 6);
+				this.colorNum = this.colorMap[this.colorIndex];
+				this.color = computeColor();
+			} else if (event.key == "ArrowDown") {
+				this.colorIndex = mod(this.colorIndex - 1, 6);
+				this.colorNum = this.colorMap[this.colorIndex];
+				this.color = computeColor();
+			}
+		});
 	}
 
 	setupController = () => {
@@ -139,13 +165,14 @@ const runNovaEngine = () => {
 	}
 
 	const animationVisualizer = (bufferLength, barHeight, dataArray, x, mode) => {
+		// draw bar graph or radial graph based on the mode
 		mode ? drawRadial(bufferLength, barHeight, dataArray) : drawBar(bufferLength, dataArray, x);
 	}
 
 	const drawBar = (bufferLength, dataArray, x) => {
 		const barWidth = 2.5;//(canvas.width/2) / bufferLength;
 		// ctx.fillStyle = '#f542ec';
-		this.ctx.fillStyle = '#476FDE';
+		this.ctx.fillStyle = this.color;
 		for (let i = 0; i < bufferLength; i++) {
 			let barHeight = dataArray[i];
 			// choose colors
@@ -161,13 +188,26 @@ const runNovaEngine = () => {
 		return [x_1, y_1];
 	}
 
+	const computeColor = () => {
+		// get the hex color
+		const num = this.colorNum.toString(16);
+		// return the padded hex color
+		return '#' + ('0'.repeat(6 - num.length)) + num;
+	}
+
+	const mod = (num, modulus) => {
+		if (num >= 0) return num % modulus;
+		let abs = Math.abs(num);
+		if (abs < modulus) return modulus - abs;
+		return modulus - (abs % modulus);
+	}
+
 	const drawRadial = (bufferLength, barHeight, dataArray) => {
 		const angle = 3.0;
-		this.ctx.lineWidth = 2;
+		this.ctx.lineWidth = 4;
 		let point = bufferLength - 120;
 		dataArray.slice(point, bufferLength);
-		//ctx.strokeStyle = '#f542ec'; //`rgb(${red}, ${green}, ${blue})`;
-		ctx.strokeStyle = '#476FDE';
+		ctx.strokeStyle = this.color;
 		for (let i = 0; i < 120; i++) {
 			// get current height
 			barHeight = dataArray[i];
@@ -184,8 +224,3 @@ const runNovaEngine = () => {
 
 // run the visualizer
 runNovaEngine();
-
-// FIXME: Update audiovis when:
-//		1) User clicks on a new song
-//		2) User loads a list of new songs
-//		3) User switches modesc
